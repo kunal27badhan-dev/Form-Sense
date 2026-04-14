@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
 
-import 'package:coolapp/main.dart';
+import 'package:coolapp/screens/ml_modules/meal_page.dart';
 
 void main() {
-  testWidgets('App starts and loads', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const FormSenseApp());
+  testWidgets('Meal page renders prediction form', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: MealPage()));
 
-    // Verify app loads without errors
-    expect(find.byType(FormSenseApp), findsOneWidget);
+    expect(find.text('Meal Recommendation'), findsOneWidget);
+    expect(find.text('Predict Meal'), findsOneWidget);
   });
 }

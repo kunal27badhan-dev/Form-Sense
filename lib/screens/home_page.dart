@@ -102,13 +102,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget _buildHeader() {
     return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(-0.5, 0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(
-        parent: _slideController,
-        curve: Curves.easeOut,
-      )),
+      position: Tween<Offset>(begin: const Offset(-0.5, 0), end: Offset.zero)
+          .animate(
+            CurvedAnimation(parent: _slideController, curve: Curves.easeOut),
+          ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -178,12 +175,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         const SizedBox(width: 12),
         _buildStatCard("8.5", "Avg Score", accentCyan, Icons.star),
         const SizedBox(width: 12),
-        _buildStatCard("3", "Streak", accentPurple, Icons.local_fire_department),
+        _buildStatCard(
+          "3",
+          "Streak",
+          accentPurple,
+          Icons.local_fire_department,
+        ),
       ],
     );
   }
 
-  Widget _buildStatCard(String value, String label, Color color, IconData icon) {
+  Widget _buildStatCard(
+    String value,
+    String label,
+    Color color,
+    IconData icon,
+  ) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -191,16 +198,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              color.withOpacity(0.2),
-              color.withOpacity(0.05),
-            ],
+            colors: [color.withOpacity(0.2), color.withOpacity(0.05)],
           ),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: color.withOpacity(0.3),
-            width: 1,
-          ),
+          border: Border.all(color: color.withOpacity(0.3), width: 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,13 +216,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              label,
-              style: TextStyle(
-                color: softText,
-                fontSize: 12,
-              ),
-            ),
+            Text(label, style: TextStyle(color: softText, fontSize: 12)),
           ],
         ),
       ),
@@ -247,7 +242,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             boxShadow: [
               BoxShadow(
-                color: accentCyan.withOpacity(0.15 + (_pulseController.value * 0.1)),
+                color: accentCyan.withOpacity(
+                  0.15 + (_pulseController.value * 0.1),
+                ),
                 blurRadius: 30,
                 offset: const Offset(0, 15),
               ),
@@ -282,7 +279,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                
+
                 BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
                   child: Container(
@@ -348,7 +345,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => CameraScreen(camera: cameras[0]),
+                                builder: (_) =>
+                                    CameraScreen(camera: cameras[0]),
                               ),
                             );
                           },
@@ -356,13 +354,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             decoration: BoxDecoration(
-                              color: Colors.black,
+                              gradient: LinearGradient(
+                                colors: [
+                                  accentGreen.withOpacity(0.85),
+                                  accentCyan.withOpacity(0.85),
+                                ],
+                              ),
                               borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: accentCyan.withOpacity(0.35),
+                                  blurRadius: 14,
+                                  offset: const Offset(0, 6),
+                                ),
+                              ],
                             ),
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.play_arrow, color: accentGreen),
+                                Icon(Icons.play_arrow, color: Colors.white),
                                 SizedBox(width: 8),
                                 Text(
                                   "Start Workout",
@@ -404,19 +414,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Row(
           children: [
             _buildActionCard(
-              icon: Icons.directions_run,
-              title: "Running",
-              subtitle: "Track pace",
+              icon: Icons.restaurant_menu,
+              title: "Meal AI",
+              subtitle: "Food suggestions",
               colors: [accentGreen, accentCyan],
-              onTap: () => Navigator.pushNamed(context, '/running'),
+              onTap: () => Navigator.pushNamed(context, '/ml/meal'),
             ),
             const SizedBox(width: 12),
             _buildActionCard(
-              icon: Icons.assignment,
-              title: "Programs",
-              subtitle: "Routines",
+              icon: Icons.fitness_center,
+              title: "Workout AI",
+              subtitle: "Plan generator",
               colors: [accentCyan, accentPurple],
-              onTap: () => Navigator.pushNamed(context, '/programs'),
+              onTap: () => Navigator.pushNamed(context, '/ml/workout'),
             ),
           ],
         ),
@@ -424,19 +434,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Row(
           children: [
             _buildActionCard(
-              icon: Icons.bar_chart,
-              title: "Progress",
-              subtitle: "Track stats",
+              icon: Icons.monitor_weight,
+              title: "Weight AI",
+              subtitle: "Weight forecast",
               colors: [accentPurple, accentPurple],
-              onTap: () => Navigator.pushNamed(context, '/progress'),
+              onTap: () => Navigator.pushNamed(context, '/ml/weight'),
             ),
             const SizedBox(width: 12),
             _buildActionCard(
-              icon: Icons.restaurant,
-              title: "Meals",
-              subtitle: "Nutrition",
+              icon: Icons.insights,
+              title: "Fitness AI",
+              subtitle: "Level classify",
               colors: [accentOrange, accentOrange],
-              onTap: () => Navigator.pushNamed(context, '/meals'),
+              onTap: () => Navigator.pushNamed(context, '/ml/fitness'),
             ),
           ],
         ),
@@ -522,10 +532,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                       Text(
                         subtitle,
-                        style: const TextStyle(
-                          color: softText,
-                          fontSize: 11,
-                        ),
+                        style: const TextStyle(color: softText, fontSize: 11),
                       ),
                     ],
                   ),
@@ -602,10 +609,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       decoration: BoxDecoration(
         color: cardDark,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: color.withOpacity(0.2),
-          width: 1,
-        ),
+        border: Border.all(color: color.withOpacity(0.2), width: 1),
       ),
       child: Row(
         children: [
@@ -635,10 +639,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    color: softText,
-                    fontSize: 13,
-                  ),
+                  style: const TextStyle(color: softText, fontSize: 13),
                 ),
                 const SizedBox(height: 8),
                 ClipRRect(
@@ -695,10 +696,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             icon: Icon(Icons.explore_outlined),
             label: 'Explore',
           ),
-          BottomNavigationBarItem(
-            icon: SizedBox(width: 40),
-            label: '',
-          ),
+          BottomNavigationBarItem(icon: SizedBox(width: 40), label: ''),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_rounded),
             label: 'Stats',
@@ -735,8 +733,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
                   colors: [
-                    accentGreen.withOpacity(0.9 - (_pulseController.value * 0.2)),
-                    accentCyan.withOpacity(0.9 - (_pulseController.value * 0.2)),
+                    accentGreen.withOpacity(
+                      0.9 - (_pulseController.value * 0.2),
+                    ),
+                    accentCyan.withOpacity(
+                      0.9 - (_pulseController.value * 0.2),
+                    ),
                   ],
                 ),
                 boxShadow: [
@@ -765,10 +767,7 @@ class _Pressable extends StatefulWidget {
   final Widget child;
   final VoidCallback? onTap;
 
-  const _Pressable({
-    required this.child,
-    this.onTap,
-  });
+  const _Pressable({required this.child, this.onTap});
 
   @override
   State<_Pressable> createState() => _PressableState();

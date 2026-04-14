@@ -11,6 +11,10 @@ import 'screens/running_dashboard.dart';
 import 'screens/meals_dashboard.dart';
 import 'screens/progress_dashboard.dart';
 import 'screens/programs_dashboard.dart';
+import 'screens/ml_modules/meal_page.dart';
+import 'screens/ml_modules/workout_page.dart';
+import 'screens/ml_modules/weight_page.dart';
+import 'screens/ml_modules/fitness_page.dart';
 
 // ✅ Global camera list
 late List<CameraDescription> cameras;
@@ -25,9 +29,7 @@ Future<void> main() async {
   );
 
   // ✅ Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // ✅ Initialize Cameras
   cameras = await availableCameras();
@@ -55,6 +57,10 @@ class FormSenseApp extends StatelessWidget {
         '/meals': (context) => const MealsDashboard(),
         '/progress': (context) => const ProgressDashboard(),
         '/programs': (context) => const ProgramsDashboard(),
+        MealPage.routeName: (context) => const MealPage(),
+        WorkoutPage.routeName: (context) => const WorkoutPage(),
+        WeightPage.routeName: (context) => const WeightPage(),
+        FitnessPage.routeName: (context) => const FitnessPage(),
       },
     );
   }
