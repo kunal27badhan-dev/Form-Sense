@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "673388066360",
+    "project_id": "form-sense",
+    "storage_bucket": "form-sense.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673388066360:android:fac20701cd6a987b6858cd",
+        "android_client_info": {
+          "package_name": "com.example.coolapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTNDSNO51u796GCdh-CcmltZNTjfaGdHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
