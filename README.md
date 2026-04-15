@@ -1,37 +1,34 @@
 # coolapp
 
-A new Flutter project.
+Flutter fitness app with Firebase auth + dashboards, now integrated with a Flask ML backend for:
+- Meal Recommendation
+- Workout Recommendation
+- Weight Prediction
+- Fitness Level Classification
 
-## Getting Started
+## App routes
 
-This project is a starting point for a Flutter application.
+ML module routes:
+- `/ml/meal`
+- `/ml/workout`
+- `/ml/weight`
+- `/ml/fitness`
 
-A few resources to get you started if this is your first Flutter project:
+## Run backend (Windows)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+From project root:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## ML backend and module routes
-
-This app now includes a Flask backend under `backend/` and four Flutter ML screens:
-- Meal AI: `/ml/meal`
-- Workout AI: `/ml/workout`
-- Weight AI: `/ml/weight`
-- Fitness AI: `/ml/fitness`
-
-### Backend setup (Windows)
-```bash
+```powershell
 cd backend
 python -m venv .venv
-.venv\Scripts\activate
+.\.venv\Scripts\activate
 pip install -r requirements.txt
 python training\train_models.py
 python app.py
 ```
+
+Backend default URL: `http://127.0.0.1:5000`  
+Android emulator should call: `http://10.0.2.2:5000`
 
 ### Backend endpoints
 - `GET /health`
@@ -40,17 +37,42 @@ python app.py
 - `POST /predict/weight`
 - `POST /predict/fitness`
 
-### Dataset-driven realistic outputs
-`backend/training/train_models.py` now uses `backend/dataset/dataset.csv` as the primary source of truth (it does not overwrite with synthetic rows when the file already exists).  
-To control practical outputs, keep these columns populated in the dataset:
+## Dataset-driven training and outputs
+
+Training script: `backend/training/train_models.py`  
+Dataset source: `backend/dataset/dataset.csv`
+
+Behavior:
+- If dataset exists, training uses it as the source of truth.
+- If dataset is missing, fallback synthetic generation is used once.
+- Training exports model artifacts and `metadata.pkl`.
+
+Required target columns:
 - `meal_recommendation`
 - `workout_recommendation`
 - `predicted_weight`
 - `fitness_level_class`
 
-Optional enrichment columns supported by training/runtime:
-- `workout_exercises` (pipe/comma separated exercise names)
+Optional enrichment columns:
+- `workout_exercises` (pipe/comma separated names)
 - `meal_highlights`
 - `fitness_guidance`
 
-Training builds `metadata.pkl` from these columns so runtime responses include real exercise names and actionable guidance.
+These enrichment columns are converted into runtime metadata so responses include:
+- Practical exercise names for Workout AI
+- Meal highlight text for Meal AI
+- Guidance text for Fitness AI
+- Trend explanation for Weight AI
+
+## Flutter notes
+
+- API client layer:
+  - `lib/services/endpoints.dart`
+  - `lib/services/api_service.dart`
+  - `lib/models/request_models.dart`
+- Shared ML widgets/constants:
+  - `lib/widgets/glass_card.dart`
+  - `lib/widgets/glass_button.dart`
+  - `lib/widgets/input_field.dart`
+  - `lib/widgets/result_card.dart`
+  - `lib/utils/constants.dart`
