@@ -1,4 +1,4 @@
-# coolapp
+# Form-Sense
 
 Flutter fitness app with Firebase auth + dashboards, now integrated with a Flask ML backend for:
 - Meal Recommendation
