@@ -462,7 +462,7 @@ def build_metadata(df: pd.DataFrame) -> dict[str, Any]:
         "fitness_guidance": fitness_map,
     }
 
-
+#model training with sklearn and save artifacts with joblib
 def train_models(df: pd.DataFrame) -> None:
     ARTIFACTS_PATH.mkdir(parents=True, exist_ok=True)
 
